@@ -1,41 +1,64 @@
-const { AsyncLocalStorage } = require('async_hooks');
-const als = new AsyncLocalStorage();
+"use strict";
 
-const cls = require('cls-hooked');
+const cls = require("cls-hooked");
 
-const createNamespace = cls.createNamespace;
-const getNamespace = cls.getNamespace;
+const nsid = require("uuid").v4(); // generate random nsid using uuid instead of hard-coded value
+const namespace = cls.getNamespace(nsid) || cls.createNamespace(nsid);
 
-const namespace = createNamespace('jscontext');
-const session = getNamespace('jscontext');
-
+/**
+ * Create context, will return the method binded to continuation local storage context.
+ * @returns {object}
+ */
 function context() {
-  return {
-    value: new Map(),
-    addContext: function (key, value){
-      const _self = this;
-      session.set(key, value);          
-      _self.value.set(key, value);
-    },
-    getContext: function (key){
-      const _self = this;
-      _self.value.set(key, session.get(key));
-      return _self.value.get(key);
+  function invokedSet(key, value) {
+    if (namespace && namespace.active) {
+      namespace.set(key, value);
     }
   }
+
+  function invokedGet(key) {
+    if (namespace && namespace.active) {
+      return namespace.get(key);
+    }
+  }
+
+  const newContext = namespace.createContext();
+
+  namespace.context = newContext;
+
+  // solve `null` namespace.active https://github.com/skonves/express-http-context/issues/26
+  namespace.active = newContext;
+
+  const set = namespace.bind(invokedSet, newContext);
+  const get = namespace.bind(invokedGet, newContext);
+
+  return { set, get, namespace };
 }
 
-function runContext(context, fn) {
-  var value = {};
-  session.run(function() {
-    value = fn(context);
-  });
-  return value;
+/**
+ * Call the context middleware
+ * @param {object} context - object return value of context function call
+ * @returns {void}
+ */
+function contextMiddleware(context) {
+  return function contextMiddleware(req, res, next) {
+    // make sure context object is not used in request object
+    if (req.context) {
+      // continue request
+      next();
+      return;
+    }
+
+    // declare the return value of context function value to context object
+    // in request object
+    req.context = context;
+
+    // continue request
+    next();
+  };
 }
 
-// example
-runContext(context(), (ctx) => {
-  ctx.addContext("key", "value");
-
-  console.log(ctx.getContext("key"));
-});
+exports = module.exports = {
+  context,
+  contextMiddleware,
+};

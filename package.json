@@ -1,0 +1,27 @@
+{
+  "name": "node-jscontext",
+  "version": "0.0.2",
+  "description": "Comprehensive way to making context for your application e.g for express request handling and share between application layers",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fncolon/jscontext.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fncolon/jscontext/issues"
+  },
+  "homepage": "https://github.com/fncolon/jscontext#readme",
+  "dependencies": {
+    "@types/cls-hooked": "^4.3.3",
+    "@types/express": "^4.17.13",
+    "cls-hooked": "^4.2.2",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "express": "^4.17.1"
+  }
+}
