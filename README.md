@@ -2,6 +2,13 @@
 
 Comprehensive way to making context for your application e.g for express request handling and share between application layers.
 
+## Table Of Contents
+
+- [Installation](#installation)
+- [Usage](#usage)
+- [API](#api)
+- [License](#license)
+
 ## Installation
 
 ```bash
@@ -78,3 +85,7 @@ app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
     gets the continuation namespace data.
 - `contextMiddleware(context: ContextReturn)`
   returns express middleware.
+
+## License
+
+`node-jscontext` using [MIT License](./LICENSE.md)
