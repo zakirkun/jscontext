@@ -20,7 +20,7 @@ npm i node-jscontext
 Basic example :
 
 ```js
-const { context } = require("../index.js");
+const { context } = require("node-jscontext");
 
 const ctx = context();
 ctx.set("Hello", "world");
