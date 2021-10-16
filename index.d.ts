@@ -13,7 +13,7 @@ type ContextReturn = {
   set: Function;
   // clsBind binded function to get value from continuation local storage by key
   get: Function;
-  // gets the continuation namespace
+  // gets the continuation namespace data
   namespace: Namespace;
 };
 

@@ -64,3 +64,17 @@ const PORT = 8000;
 
 app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
 ```
+
+## API
+
+`node-jscontext` provide a context with list of APIs below.
+
+- `context()`
+  - `get()`
+    clsBind binded function to get value from continuation local storage by key.
+  - `set()`
+    clsBind binded function to set value from continuation local storage by key.
+  - `namespace`
+    gets the continuation namespace data.
+- `contextMiddleware(context: ContextReturn)`
+  returns express middleware.

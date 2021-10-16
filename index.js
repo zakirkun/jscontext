@@ -41,7 +41,7 @@ function context() {
  * @returns {void}
  */
 function contextMiddleware(context) {
-  return function contextMiddleware(req, res, next) {
+  return function expressMiddleware(req, res, next) {
     // make sure context object is not used in request object
     if (req.context) {
       // continue request
