@@ -1,16 +1,24 @@
 {
   "name": "node-jscontext",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Comprehensive way to making context for your application e.g for express request handling and share between application layers",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "basic-example": "node ./examples/basic.js",
+    "express-example": "node ./examples/express/index.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/fncolon/jscontext.git"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "Context for request-scoped handling",
+    "Context to share data between application layers",
+    "Application context for NodeJS",
+    "Express context middleware"
+  ],
+  "author": "fncolon <Muhammad Fauzan>",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/fncolon/jscontext/issues"
   },
