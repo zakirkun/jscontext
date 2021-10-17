@@ -5,7 +5,6 @@ const cls = require("cls-hooked");
 const nsid = require("uuid").v4(); // generate random nsid using uuid instead of hard-coded value
 const namespace = cls.getNamespace(nsid) || cls.createNamespace(nsid);
 
-console.log(namespace.reset);
 /**
  * Create context, will return the method binded to continuation local storage context.
  * @returns {object}
