@@ -1,4 +1,4 @@
-import { contextMiddleware, context } from "node-jscontext";
+import { contextMiddleware, context } from "../../index.js";
 
 export default {
   contextMiddleware,

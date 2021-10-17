@@ -11,7 +11,7 @@ app.use(contextMiddleware(context));
 
 // share between routes
 app.get("/", (req, res) => {
-  req.context.set("date", Date());
+  req.context.setWithTimeout("date", Promise.resolve("Hello"), 20000);
 
   return res.send("Binded");
 });

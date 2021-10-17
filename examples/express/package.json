@@ -6,7 +6,7 @@
   "type": "module",
   "dependencies": {
     "express": "^4.17.1",
-    "node-jscontext": "0.0.2"
+    "node-jscontext": "0.0.4"
   },
   "devDependencies": {},
   "scripts": {

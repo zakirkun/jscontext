@@ -5,6 +5,7 @@ const cls = require("cls-hooked");
 const nsid = require("uuid").v4(); // generate random nsid using uuid instead of hard-coded value
 const namespace = cls.getNamespace(nsid) || cls.createNamespace(nsid);
 
+console.log(namespace.reset);
 /**
  * Create context, will return the method binded to continuation local storage context.
  * @returns {object}
@@ -22,6 +23,16 @@ function context() {
     }
   }
 
+  function invokedSetWithTimeout(key, value, timeout = 10000) {
+    if (namespace && namespace.active) {
+      namespace.set(key, value);
+
+      setTimeout(() => {
+        namespace.set(key, undefined); // set to garbage collection
+      }, timeout);
+    }
+  }
+
   const newContext = namespace.createContext();
 
   namespace.context = newContext;
@@ -31,8 +42,9 @@ function context() {
 
   const set = namespace.bind(invokedSet, newContext);
   const get = namespace.bind(invokedGet, newContext);
+  const setWithTimeout = namespace.bind(invokedSetWithTimeout, newContext);
 
-  return { set, get, namespace };
+  return { set, get, setWithTimeout, namespace };
 }
 
 /**
