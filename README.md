@@ -1,5 +1,9 @@
 # jscontext
 
+[![Known Vulnerabilities](https://snyk.io/test/github/fncolon/jscontext/badge.svg?targetFile=package.json)](https://snyk.io/test/github/fncolon/jscontext?targetFile=package.json)
+[![npm stable version](https://img.shields.io/npm/v/node-jscontext.svg?logo=npm)](https://npmjs.com/package/node-jscontext)
+[![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
 Comprehensive way to making context for your application e.g for express request handling and share between application layers.
 
 ## Table Of Contents
