@@ -24,57 +24,19 @@ npm i node-jscontext
 Basic example :
 
 ```js
-const { context } = require("node-jscontext");
+const { context } = require("../index.js");
 
 const ctx = context();
-ctx.set("Hello", "world");
+ctx.set("Hello", "world"); 
+ctx.setWithTimeout("Hello2", Promise.resolve('world2')); // avoid memory leaks for promise value
 
-console.log(ctx.get("Hello"));
-console.log(context().get("Hello"));
+console.log(ctx.get("Hello")); // world
+console.log(context().get("Hello")); // world
+console.log(ctx.get("Hello2")); // Promise { 'world2' }
+console.log(context().get("Hello2")); // Promise { 'world2' }
 ```
 
-Example using expressjs :
-
-```js
-// context.js
-import { contextMiddleware, context } from "node-jscontext";
-
-export default {
-  contextMiddleware,
-  context: context(),
-};
-
-// index.js
-import express from "express";
-import applicationContext from "./context.js";
-
-const { contextMiddleware, context } = applicationContext;
-
-const app = express();
-
-// ofcourse you can create your own modified context so we can pass it as argument
-// instead of using default node-jscontext context
-app.use(contextMiddleware(context));
-
-// share between routes
-app.get("/", (req, res) => {
-  req.context.set("date", Date());
-
-  return res.send("Binded");
-});
-
-app.get("/binded", (req, res) => {
-  // e.g share between layer from the context we made in context.js
-  console.log(context.get("date"));
-  console.log(context.namespace);
-
-  return res.status(200).send(req.context.get("date"));
-});
-
-const PORT = 8000;
-
-app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
-```
+[Example using expressjs](./examples/express/README.md)
 
 ## API
 
@@ -85,6 +47,8 @@ app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
     clsBind binded function to get value from continuation local storage by key.
   - `set()`
     clsBind binded function to set value from continuation local storage by key.
+  - `setWithTimeout()`
+    clsBind binded function to set value from continuation local storage by key with timeout.
   - `namespace`
     gets the continuation namespace data.
 - `contextMiddleware(context: ContextReturn)`
