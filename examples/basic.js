@@ -10,7 +10,7 @@ examples = {
     version : 1.2
 }
 
-ctx.multiSet(examples) // set with object data
+ctx.multipleSet(examples) // set with object data
 
 console.log(ctx.get("Hello")); // world
 console.log(context().get("Hello")); // world
