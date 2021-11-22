@@ -16,9 +16,23 @@ function context() {
     }
   }
 
+  function invokedSetMulti(key = {}){
+    if (namespace && namespace.active){
+      Object.keys(key).map((index, value) => {
+        namespace.set(index, key[index])
+      });
+    }
+  }
+
   function invokedGet(key) {
     if (namespace && namespace.active) {
       return namespace.get(key);
+    }
+  }
+
+  function invokedGetCallback(key, cb){
+    if (namespace && namespace.active){
+      cb(namespace.get(key));
     }
   }
 
@@ -40,10 +54,12 @@ function context() {
   namespace.active = newContext;
 
   const set = namespace.bind(invokedSet, newContext);
+  const multiSet = namespace.bind(invokedSetMulti, newContext);
   const get = namespace.bind(invokedGet, newContext);
+  const getWithCallback = namespace.bind(invokedGetCallback, newContext);
   const setWithTimeout = namespace.bind(invokedSetWithTimeout, newContext);
 
-  return { set, get, setWithTimeout, namespace };
+  return { set, multiSet, get, getWithCallback,setWithTimeout, namespace };
 }
 
 /**

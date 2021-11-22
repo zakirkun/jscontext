@@ -11,8 +11,12 @@ type expressMiddleware = (
 type ContextReturn = {
   // clsBind binded function to set value from continuation local storage by key
   set: Function;
+  // clsBind binded function to multi set value from continuation local storage by object key
+  multiSet: Function;
   // clsBind binded function to get value from continuation local storage by key
   get: Function;
+  // clsBind binded function to get value from continuation local storage by key an return as callback
+  getWithCallback: Function;
   // clsBind binded function to set value from continuation local storage by key with timeout.
   setWithTimeout: Function;
   // gets the continuation namespace data
