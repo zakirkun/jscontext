@@ -4,12 +4,13 @@ const ctx = context();
 ctx.set("Hello", "world"); 
 ctx.setWithTimeout("Hello2", Promise.resolve('world2')); // avoid memory leaks for promise value
 
-dataDummy = {
+// multipleset by object
+examples = {
     name: "js context",
     version : 1.2
 }
 
-ctx.multiSet(dataDummy) // set with object data
+ctx.multiSet(examples) // set with object data
 
 console.log(ctx.get("Hello")); // world
 console.log(context().get("Hello")); // world
